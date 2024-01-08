@@ -1,0 +1,31 @@
+<div data-controller="modal toggle-checkbox" class="nested-form-wrapper" data-auto-open-modal="<%= f.object.persisted? ? "false" : "true" %>">
+
+  <%= render "reasons/edit", f: f %>
+
+  <div class="flex align-middle border-t border-gray-200 text-xs p-2">
+    <div class="px-3 py-2 handle">
+      <%= render "common/svg/drag", size: 24 %>
+    </div>
+
+    <div class="px-2 py-2">
+      <span data-toggle-checkbox-target="checked">
+        <%= render "common/svg/visible" %>
+      </span>
+      <span data-toggle-checkbox-target="unchecked" class="hidden">
+        <%= render "common/svg/hidden" %>
+      </span>
+    </div>
+
+    <div class="grow pl-1 py-2 text-base font-semibold" data-toggle-checkbox-target="checked" data-controller="pub-sub-input" data-action="pub-sub-input:send@window->pub-sub-input#subscribe" data-pub-sub-input-key-value="label<%= f.index %>">
+      <%= reason.label %>
+    </div>
+
+    <div class="grow pl-1 py-2 text-base font-semibold text-gray-500 hidden" data-toggle-checkbox-target="unchecked" data-controller="pub-sub-input" data-action="pub-sub-input:send@window->pub-sub-input#subscribe" data-pub-sub-input-key-value="label<%= f.index %>">
+      <%= reason.label %>
+    </div>
+ 
+    <div class="py-2 pr-2">
+      <button data-action="click->modal#show" class="primary-link">Edit</button>
+    </div>
+  </div>
+</div>

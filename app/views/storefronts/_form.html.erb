@@ -1,4 +1,4 @@
-<%= simple_form_for storefront, data: { controller: 'nested-form', nested_form_index_value: 'NEW_RECORD' } do |form| %>
+<%= simple_form_for storefront, data: { controller: 'nested-form', nested_form_index_value: 'NEW_RECORD' }, html: { id: 'storefront-form' } do |form| %>
   <% if storefront.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(storefront.errors.count, "error") %> prohibited this storefront from being saved:</h2>
@@ -11,33 +11,33 @@
     </div>
   <% end %>
 
-  <div>
-    <div
-      class="return-reason-container"
-    >
-      <template hidden data-nested-form-target="template">
-        <%= form.simple_fields_for :reasons, Reason.new, child_index: 'NEW_RECORD' do |reason_fields| %>
-          <%= render 'reason', f: reason_fields %>
+  <div class="flex-grow">
+    <div class="return-reason-container rounded-lg bg-gray-100 border border-gray-200 text-sm m-2">
+      <div class="flex">
+        <div class="px-3 py-2">
+          <%= render "common/svg/plus", size: 24 %>
+        </div>
+        <div class="grow align-middle">
+          <button type="button" data-action="nested-form#addAssociation" class="primary-link pl-3 pt-2">
+            Add Return Reason
+          </button>
+
+          <template data-nested-form-target="template">
+            <%= form.simple_fields_for :reasons, Reason.new, child_index: 'NEW_RECORD' do |reason_fields| %>
+              <%= render reason_fields.object, f: reason_fields, reason: reason_fields.object %>
+            <% end %>
+          </template>
+
+        </div>
+    </div>
+
+      <div data-controller="sortable" data-sortable-handle-value=".handle">
+        <%= form.simple_fields_for :reasons, @storefront.reasons.ordered do |reason_fields| %>
+          <%= render reason_fields.object, reason: reason_fields.object, f: reason_fields %>
         <% end %>
-      </template>
+        <div hidden data-nested-form-target="addItem"></div>
+      </div>
 
-      <button type="button" data-action="nested-form#addAssociation" class="btn">
-        <i class="add-icon"></i> Add Return Reason
-      </button>
-      <%= form.simple_fields_for :reasons, @storefront.reasons.ordered do |reason_fields| %>
-        <%= render 'reason', f: reason_fields %>
-      <% end %>
-
-      <div hidden data-nested-form-target="addItem"></div>
-    </div>
-  </div>
-
-  <div>
-    <div>
-      Remember to save your changes before leaving this page
-    </div>
-    <div>
-      <%= form.submit 'Save', class: 'btn-primary' %>
     </div>
   </div>
 <% end %>

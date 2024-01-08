@@ -1,14 +1,28 @@
-<div class="mx-auto md:w-2/3 w-full">
-  <h1>Returns</h1>
+<div class=" w-full">
+  <h1 class="font-bold text-2xl/[32px] m-4">Returns</h1>
 
   <fieldset>
-    <div>
-      <legend>Return Reasons</legend>
-      Add or edit return reasons you would like to show the customers during the return request process.
+    <div class="flex flex-row border border-gray-200 bg-white rounded-lg shadow-md m-4 p-3">
+      <div class="basis-1/2 pr-6">
+        <legend class="font-semibold text-xl my-2">Return Reasons</legend>
+        <p class="text-base font-sm leading-5">Add or edit return reasons you would like to show the customers during the return request process.</p>
+      </div>
+
+      <div class="basis-1/2">
+        <%= render "form", storefront: @storefront %>
+      </div>
     </div>
 
-    <div>
-      <%= render "form", storefront: @storefront %>
+    <div class="fixed bg-white bottom-0 -z-0">
+      <div class="grid grid-cols-2 grid-flow-col my-auto text-s w-screen p-4">
+        <div class="py-3 font-weight-400 grow">
+          Remember to save your changes before leaving this page
+        </div>
+        <div class="align-middle overflow-scroll text-right mr-[250px]">
+          <button class="btn-primary" form="storefront-form">Save</button>
+        </div>
+      </div>
     </div>
   </fieldset>
+
 </div>

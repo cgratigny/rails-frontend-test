@@ -1,0 +1,55 @@
+<div class="dashboard-form-fields">
+  <%=
+    f.input :label,
+      label: 'Displayed reason',
+      required: true,
+      placeholder: 'Enter Displayed reason...',
+      hint: "Provide a friendly description for the reason that will be displayed to the customer.",
+      input_html: { data: { controller: "pub-sub-input", action: "pub-sub-input#publish", pub_sub_input_key_value: "label#{f.index}" } }
+  %>
+
+  <%=
+    f.input :code,
+      label: 'Internal return code',
+      required: true,
+      placeholder: 'Enter Internal return code...',
+      hint: "For internal use only. Must be unique. To aid in analytics, we do not recommend changing the code once set."
+  %>
+
+  <div class="mt-4">
+    <div data-action="click->toggle-checkbox#toggle" data-toggle-checkbox-target="unchecked" class="flex">
+      <div>
+        <%= render "common/svg/hidden", size: 24 %>
+      </div>
+      <div class="grow pl-4">
+        <%= f.label "Return Reason is Hidden" %>
+        <%= f.hint "When hidden, this return reason is not offered as an option to the customers. Click on the eye icon to make the return reason visible" %>
+      </div>
+    </div>
+
+    <div data-action="click->toggle-checkbox#toggle" data-toggle-checkbox-target="checked" class="flex">
+      <div>
+        <%= render "common/svg/visible", size: 24 %>
+      </div>
+      <div class="grow pl-4">
+        <%= f.label "Return Reason is Visible" %>
+        <%= f.hint "When visible, this return reason is offered as an option to the customers. Click on the eye icon to make the return reason hidden" %>
+      </div>
+    </div>
+
+    <%= 
+      f.input :active,
+        input_html: { data: { toggle_checkbox_target: :checkbox, action: "toggle-checkbox#toggle change->toggle-elements#toggle" } },
+        wrapper_html: { class: :hidden }
+    %>
+
+  </div>
+
+  <%= 
+    f.input :ordering,
+      as: :hidden,
+      input_html: { data: { sortable: :target } }
+  %>
+
+  <%= f.hidden_field :_destroy %>
+</div>
