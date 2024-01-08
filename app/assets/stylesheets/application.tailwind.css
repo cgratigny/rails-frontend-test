@@ -3,13 +3,18 @@
 @tailwind utilities;
 
 @layer components {
-  .btn-primary {
-    @apply py-2 px-4 bg-blue-200;
-  }
   .btn {
-    @apply py-2 px-4 bg-gray-200;
+    @apply py-3 px-5 bg-gray-200 font-bold rounded-md ;
+  }
+
+  .btn-primary {
+    @apply btn bg-yellow-400;
   }
   .btn-danger {
-    @apply py-2 px-4 bg-red-200;
+    @apply btn bg-white border-2 border-red-500 text-red-500;
+  }
+
+  .primary-link {
+    @apply font-semibold text-[#3164F6] text-base;
   }
 }
